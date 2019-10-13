@@ -33,7 +33,7 @@
     
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];//导航栏颜色
     self.navigationController.navigationBar.tintColor =[UIColor whiteColor];//返回键颜色
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/返回.png"] style:UIBarButtonItemStylePlain target:self action:@selector(clickBackButtonAction)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStylePlain target:self action:@selector(clickBackButtonAction)];
     self.title = @"haonwiaiakfjklankfnaifianwfhafnkabfkunakfuiafiabkuf";
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20.0f], NSForegroundColorAttributeName:[UIColor whiteColor]}];//title颜色和字体大小

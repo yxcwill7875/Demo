@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong)UIImageView *leftLineImageView;
 @property(nonatomic, strong)UIImageView *downLineImageView;
 @property(nonatomic, strong)UIImageView *picImageView;
-
+@property(nonatomic, strong)UIButton *clickButton;
+@property(nonatomic, strong)UIButton *touchButton;
 
 @end
 

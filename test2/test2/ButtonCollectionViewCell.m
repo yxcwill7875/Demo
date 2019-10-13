@@ -20,6 +20,13 @@
         _leftLineImageView = [[UIImageView alloc]init];
         _picImageView = [[UIImageView alloc]init];
         
+        _clickButton = [[UIButton alloc]init];//设置整个cell为一个按钮
+        _touchButton = [[UIButton alloc]init];//设置整个cell为一个按钮
+
+
+        [self.contentView addSubview:_clickButton];
+        [self.contentView addSubview:_touchButton];
+        
         [self.contentView addSubview:_cellImageView];
         [self.contentView addSubview:_insideImageView];
         [self.contentView addSubview:_insideLabel];
@@ -33,6 +40,10 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    _clickButton.frame = CGRectMake(self.contentView.frame.size.width / 6, self.contentView.frame.size.height / 6, self.contentView.frame.size.width * 2 / 3, self.contentView.frame.size.height * 2 / 3);
+    _touchButton.frame = _clickButton.frame;
+    
     _cellImageView.frame = CGRectMake(self.contentView.frame.size.width / 6, self.contentView.frame.size.height / 6, self.contentView.frame.size.width * 2 / 3, self.contentView.frame.size.height * 2 / 3);
     
     _insideImageView.frame = CGRectMake(_cellImageView.frame.origin.x + _cellImageView.frame.size.width / 8, _cellImageView.frame.origin.y + _cellImageView.frame.size.height / 8, _cellImageView.frame.size.width / 4 * 3, _cellImageView.frame.size.height / 4 * 3);
@@ -82,23 +93,23 @@
         //第一种风格
         if (selected) {
             self.backgroundColor = [UIColor grayColor];
-            self.cellImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI Btn-ON-外框_20190403.png"];
-            self.insideImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI Btn-ON_按鈕空白處_20190403.png"];
+            self.cellImageView.image = [UIImage imageNamed:@"SP5110-UI Btn-ON-外框_20190403"];
+            self.insideImageView.image = [UIImage imageNamed:@"SP5110-UI Btn-ON_按鈕空白處_20190403"];
         } else {
             self.backgroundColor = [UIColor blackColor];
-            self.cellImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI Btn-OFF-外框_20190403.png"];
-            self.insideImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI Btn-OFF-內框_20190403.png"];
+            self.cellImageView.image = [UIImage imageNamed:@"SP5110-UI Btn-OFF-外框_20190403"];
+            self.insideImageView.image = [UIImage imageNamed:@"SP5110-UI Btn-OFF-內框_20190403"];
             
         }
     }else {//第二种风格
         if (selected) {
             self.backgroundColor = [UIColor grayColor];
-            self.cellImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI-2 Btn-ON-外框_20190412.png"];
-            self.insideImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI-2 Btn-ON-內框_20190412.png"];
+            self.cellImageView.image = [UIImage imageNamed:@"SP5110-UI-2 Btn-ON-外框_20190412"];
+            self.insideImageView.image = [UIImage imageNamed:@"SP5110-UI-2 Btn-ON-內框_20190412"];
         } else {
             self.backgroundColor = [UIColor blackColor];
-            self.cellImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI-2 Btn-OFF-外框_20190412.png"];
-            self.insideImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI-2 Btn-OFF-內框_20190412.png"];
+            self.cellImageView.image = [UIImage imageNamed:@"SP5110-UI-2 Btn-OFF-外框_20190412"];
+            self.insideImageView.image = [UIImage imageNamed:@"SP5110-UI-2 Btn-OFF-內框_20190412"];
             
         }
         

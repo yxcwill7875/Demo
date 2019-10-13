@@ -44,7 +44,7 @@
 -(void)setDataArray {
     _dataArray = [NSMutableArray array];
     for (int i = 0; i < 52; i++) {
-        NSString *str = [NSString stringWithFormat:@"/Users/yuxiaocong/Desktop/back/test2/ico/pic%d.png", i + 1 ];
+        NSString *str = [NSString stringWithFormat:@"pic%d", i + 1 ];
         [_dataArray addObject:str];
     }
     
@@ -81,7 +81,7 @@
     //设置添加文字按钮
     UIButton *addTextButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addTextButton setFrame:CGRectMake(kSCREEN_WIDTH / 60, collectionView.frame.size.height + kSCREEN_WIDTH / 60, flowLayout.itemSize.width, flowLayout.itemSize.height)];
-    [addTextButton setImage:[UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/添加.png"] forState:UIControlStateNormal];
+    [addTextButton setImage:[UIImage imageNamed:@"添加"] forState:UIControlStateNormal];
     [addTextButton addTarget:self action:@selector(addTextAction) forControlEvents:UIControlEventTouchDown];
 
     [self.view addSubview:addTextButton];
@@ -174,7 +174,6 @@
            
             if ([cellDic objectForKey:@"pic"]) {
                 [cellDic removeObjectForKey:@"pic"];
-                NSLog(@"%@", cellDic);
             }
             //保存输入的文本
             

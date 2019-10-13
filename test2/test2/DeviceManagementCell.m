@@ -36,7 +36,7 @@
     _time.textColor = [UIColor grayColor];
     
     _setting.frame = CGRectMake(self.contentView.frame.size.width - 40, (self.contentView.frame.size.height - 40) / 2, 20, 20);
-    [_setting setImage:[UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/pic1.png"] forState:UIControlStateNormal];
+    [_setting setImage:[UIImage imageNamed:@"pic1"] forState:UIControlStateNormal];
     
 }
 

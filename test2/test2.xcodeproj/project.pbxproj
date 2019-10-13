@@ -24,6 +24,7 @@
 		E351D321226373AC000C283B /* CustomButtonCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E351D320226373AC000C283B /* CustomButtonCollectionViewCell.m */; };
 		E39213D12273406300CF6687 /* StyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E39213D02273406300CF6687 /* StyleCell.m */; };
 		E39FAB202260CC6F007EE26A /* SelectPicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E39FAB1F2260CC6F007EE26A /* SelectPicViewController.m */; };
+		E3AA58D1229A43C3007F80A5 /* ico in Frameworks */ = {isa = PBXBuildFile; fileRef = E31C7508225CF1220018F0E3 /* ico */; };
 		E3B8D9D2226B2400008519D4 /* PanelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B8D9D1226B2400008519D4 /* PanelsViewController.m */; };
 		E3B8D9D5226B2426008519D4 /* DeviceManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B8D9D4226B2426008519D4 /* DeviceManagementViewController.m */; };
 		E3B8D9D8226B2433008519D4 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B8D9D7226B2433008519D4 /* AboutViewController.m */; };
@@ -31,6 +32,7 @@
 		E3B8D9DE226B2BC3008519D4 /* DeviceManagementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B8D9DD226B2BC3008519D4 /* DeviceManagementCell.m */; };
 		E3B8D9E1226B612C008519D4 /* CusNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B8D9E0226B612C008519D4 /* CusNavViewController.m */; };
 		E3E741A2226635B2007BF166 /* SelectPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E741A1226635B2007BF166 /* SelectPicCell.m */; };
+		E3ED8944232FF43200B6D49C /* BlueToothSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = E3ED8943232FF43200B6D49C /* BlueToothSingleton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +81,8 @@
 		E3B8D9E0226B612C008519D4 /* CusNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CusNavViewController.m; sourceTree = "<group>"; };
 		E3E741A0226635B2007BF166 /* SelectPicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectPicCell.h; sourceTree = "<group>"; };
 		E3E741A1226635B2007BF166 /* SelectPicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectPicCell.m; sourceTree = "<group>"; };
+		E3ED8942232FF43200B6D49C /* BlueToothSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlueToothSingleton.h; sourceTree = "<group>"; };
+		E3ED8943232FF43200B6D49C /* BlueToothSingleton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueToothSingleton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3AA58D1229A43C3007F80A5 /* ico in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +103,7 @@
 				E31C7508225CF1220018F0E3 /* ico */,
 				E31C74EB225CF0190018F0E3 /* test2 */,
 				E31C74EA225CF0190018F0E3 /* Products */,
+				E3AA58CF229A4286007F80A5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +124,8 @@
 				E3B8D9E0226B612C008519D4 /* CusNavViewController.m */,
 				E31C74EF225CF01A0018F0E3 /* ViewController.h */,
 				E31C74F0225CF01A0018F0E3 /* ViewController.m */,
+				E3ED8942232FF43200B6D49C /* BlueToothSingleton.h */,
+				E3ED8943232FF43200B6D49C /* BlueToothSingleton.m */,
 				E31C7502225CF0320018F0E3 /* SetViewController.h */,
 				E31C7503225CF0320018F0E3 /* SetViewController.m */,
 				E3043FD8225E291A005AAF6C /* SetPicViewController.h */,
@@ -157,6 +165,13 @@
 				E31C74FB225CF01B0018F0E3 /* main.m */,
 			);
 			path = test2;
+			sourceTree = "<group>";
+		};
+		E3AA58CF229A4286007F80A5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +255,7 @@
 				E31C7504225CF0320018F0E3 /* SetViewController.m in Sources */,
 				E31C74FC225CF01B0018F0E3 /* main.m in Sources */,
 				E3B8D9D5226B2426008519D4 /* DeviceManagementViewController.m in Sources */,
+				E3ED8944232FF43200B6D49C /* BlueToothSingleton.m in Sources */,
 				E31C74EE225CF0190018F0E3 /* AppDelegate.m in Sources */,
 				E39213D12273406300CF6687 /* StyleCell.m in Sources */,
 				E3043FD7225E1875005AAF6C /* SetCollectionViewCell.m in Sources */,
@@ -399,6 +415,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = yxc.test2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -417,6 +434,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = yxc.test2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

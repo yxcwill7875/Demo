@@ -31,7 +31,7 @@
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];//导航栏颜色
     self.navigationController.navigationBar.tintColor =[UIColor whiteColor];//返回键颜色
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/返回.png"] style:UIBarButtonItemStylePlain target:self action:@selector(clickCancelButtonMethod)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStylePlain target:self action:@selector(clickCancelButtonMethod)];
     self.title = @"haonwiaiakfjklankfnaifianwfhafnkabfkunakfuiafiabkuf";
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20.0f], NSForegroundColorAttributeName:[UIColor whiteColor]}];//title颜色和字体大小
@@ -51,7 +51,7 @@
     
     _reloadDataArray = [NSMutableArray array];
     for (int i = 0; i < 52; i++) {
-        NSString *str = [NSString stringWithFormat:@"/Users/yuxiaocong/Desktop/back/test2/ico/pic%d.png", i + 1 ];
+        NSString *str = [NSString stringWithFormat:@"pic%d", i + 1 ];
         [_reloadDataArray addObject:str];
     }
     
@@ -196,7 +196,7 @@
 
     if (pic) {
         //数组里有值
-        cell.insideImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"/Users/yuxiaocong/Desktop/back/test2/ico/pic%@.png", pic]];
+        cell.insideImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic%@", pic]];
         [cell.insideLabel setHidden:YES];
         [cell.insideImageView setHidden:NO];
     }else if (text) {
@@ -267,6 +267,7 @@
     if([sender isOn]) {
         NSNumber * boolNum = [NSNumber numberWithBool:YES];
         [cellDic setObject:boolNum forKey:@"switch"];
+        [cellDic setValue:@"0" forKey:@"select"];//如果switch是打开的（允许长按），把cell的点击状态设置为未点击状态
         //存入cell字典中的switch状态
         [deviceDic setObject:cellDic forKey:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
         [defaults setObject:deviceDic forKey:deviceStr];

@@ -8,14 +8,16 @@
 
 #import "DeviceManagementViewController.h"
 #import "DeviceManagementCell.h"
+#import "BlueToothSingleton.h"
 
 #define kIs_iPhoneX (kSCREEN_WIDTH == 375.f && kSCREEN_HEIGHT == 812.f)
 #define kSCREEN_WIDTH  ([UIScreen mainScreen].bounds.size.width)
 #define kSCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
-@interface DeviceManagementViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface DeviceManagementViewController ()<UITableViewDelegate,UITableViewDataSource,BleDelegate>
 
 @property(nonatomic, strong)UITableView *tableView;
-@property(nonatomic, copy)NSMutableArray *dataArray;//数据源数组
+@property(nonatomic, copy)NSMutableArray *deviceArray;//外设数组
+@property(nonatomic, copy)NSMutableArray *deviceName;//外设名字数组
 @property(nonatomic, copy)NSDictionary *dic;
 
 @end
@@ -29,16 +31,17 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/返回.png"] style:UIBarButtonItemStylePlain target:self action:@selector(clickCancelButtonMethod)];
     self.title = @"蓝牙";
     
-    NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceNames"];
+    NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceNames"];
+    NSLog(@"%@", arr);
     if (arr) {
-        _dataArray = [NSMutableArray arrayWithArray:arr];
+        _deviceName = [NSMutableArray arrayWithArray:arr];
     }else {
         
-        _dataArray = [NSMutableArray arrayWithObjects:@"dgkkie.oak-qff",@"kkclgoq002k.eo-1q24", nil];
+        _deviceName = [NSMutableArray array];
         
     }
     
-    
+    [BlueToothSingleton shareInstance].discoverDelegate = self;
     
     [self createViews];
     
@@ -78,7 +81,7 @@
         
         //取出当前设备字典
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *deviceStr = _dataArray[indexPath.row - 2];//设置设备初始风格(默认风格1)
+        NSString *deviceStr = _deviceName[indexPath.row - 2];//设置设备初始风格(默认风格1)
         NSMutableDictionary *deviceDic = [NSMutableDictionary dictionary];
         deviceDic = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:deviceStr]];
         //设置设备初始风格(默认风格1)
@@ -89,7 +92,7 @@
         }
         
         DeviceManagementCell *cell = [[DeviceManagementCell alloc]init];
-        cell.deviceName.text = [_dataArray objectAtIndex:indexPath.row - 2];
+        cell.deviceName.text = [_deviceName objectAtIndex:indexPath.row - 2];
         cell.time.text = @"上次配对时间:04-20 20:29";
         [cell.setting addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventAllEvents];
         
@@ -115,9 +118,9 @@
         //输入文字不为空,则将输入文字赋值数组,重新布局界面
         if (textField.text.length != 0) {
             
-            [self.dataArray replaceObjectAtIndex:indexPath.row - 2 withObject:textField.text];
+            [self.deviceName replaceObjectAtIndex:indexPath.row - 2 withObject:textField.text];
             
-            [[NSUserDefaults standardUserDefaults] setObject:self.dataArray forKey:@"DeviceNames"];//存入数据源数组
+            [[NSUserDefaults standardUserDefaults] setObject:self.deviceName forKey:@"diviceNames"];//存入数据源数组
             
             [self.tableView reloadData];
         }
@@ -142,13 +145,16 @@
 #pragma mark tableView行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return _dataArray.count + 2;
+    return _deviceName.count + 2;
 }
 
 #pragma mark tableView点击方法
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:
+            //点击扫描按钮，执行扫描蓝牙设备操作
+            [[BlueToothSingleton shareInstance] scanDevice];
+            
             
             break;
         case 1:
@@ -156,7 +162,7 @@
             break;
             
         default:
-            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", _dataArray[indexPath.row - 2]] forKey:@"DeviceName"];//存入设备型号
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@", _deviceName[indexPath.row - 2]] forKey:@"diviceName"];//存入设备型号
             [self.navigationController popToRootViewControllerAnimated:YES];
             break;
     }
@@ -172,6 +178,15 @@
 #pragma mark 取消按钮
 - (void)clickCancelButtonMethod {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark 蓝牙单例代理方法
+- (void)BLEDidDiscoverDeviceWithMAC:(CBPeripheral *)peripheral {
+    
+    [_deviceName addObject:peripheral];
+    //这里我用了一个TableView去展示扫描到的设备，可以使用peripheral.name来作为设备展示
+    NSLog(@"有%ld个设备：%@",(unsigned long)_deviceName.count,_deviceName);
+    [_tableView reloadData];
 }
 
 

@@ -30,10 +30,6 @@
     [self.navigationController setToolbarHidden:YES];
     [self.navigationController setNavigationBarHidden:YES];
     
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSString *deviceStr = [defaults objectForKey:@"DeviceName"];
-//    NSMutableDictionary *deviceDic = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:deviceStr]];
-//    NSLog(@"style-------%@---------style", [deviceDic objectForKey:@"style"]);
     
     //横屏
     [self setRotationMethod];
@@ -81,7 +77,7 @@
     
     //初始化电池图片
     UIImageView *batteryImageView = [[UIImageView alloc]initWithFrame:CGRectMake(batteryLabel.frame.origin.x + batteryLabel.frame.size.width, batteryLabel.frame.origin.y, batteryLabel.frame.size.width, batteryLabel.frame.size.height)];
-    [batteryImageView setImage:[UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test/ico/battery.png"]];
+    [batteryImageView setImage:[UIImage imageNamed:@"battery"]];
     
     [self.view addSubview:batteryImageView];
     
@@ -91,13 +87,13 @@
     _titleLabel.font = [UIFont systemFontOfSize:24];
     _titleLabel.textColor = batteryLabel.textColor;
     _titleLabel.backgroundColor = self.view.backgroundColor;
-    
+   
     [self.view addSubview:_titleLabel];
     
     //设置按钮
     UIButton *setButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [setButton setFrame:CGRectMake(_titleLabel.frame.size.width + _titleLabel.frame.origin.x, _titleLabel.frame.origin.y, _titleLabel.frame.size.height, _titleLabel.frame.size.height)];
-    [setButton setBackgroundImage:[UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test/ico/shezhi.png"] forState:UIControlStateNormal];
+    [setButton setBackgroundImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
     [setButton addTarget:self action:@selector(clickSetButtonMethod) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -144,17 +140,16 @@
         cellDic = [deviceDic objectForKey:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
     }
     
-    
-    NSLog(@"select---%@", [cellDic objectForKey:@"select"]);
     //根据NSUserDefault保存的数据对cell初始化
     NSString *pic = [cellDic objectForKey:@"pic"];
     
     NSString *text = [cellDic objectForKey:@"text"];
 
     
+    
     if (pic) {
         //数组里有值
-        cell.picImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"/Users/yuxiaocong/Desktop/back/test2/ico/pic%@.png", pic]];
+        cell.picImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"pic%@", pic]];
         [cell.insideLabel setHidden:YES];
         [cell.picImageView setHidden:NO];
         
@@ -177,14 +172,14 @@
     if ([[deviceDic objectForKey:@"style"] isEqualToString:@"0"]) {
         //常规布局
         
-        cell.cellImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI Btn-OFF-外框_20190403.png"];
-        cell.insideImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI Btn-OFF-內框_20190403.png"];
+        cell.cellImageView.image = [UIImage imageNamed:@"SP5110-UI Btn-OFF-外框_20190403"];
+        cell.insideImageView.image = [UIImage imageNamed:@"SP5110-UI Btn-OFF-內框_20190403"];
         
         
     }else if ([[deviceDic objectForKey:@"style"] isEqualToString:@"1"]){
         //水滴形布局
-         cell.cellImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI-2 Btn-OFF-外框_20190412.png"];
-        cell.insideImageView.image = [UIImage imageNamed:@"/Users/yuxiaocong/Desktop/back/test2/ico/SP5110-UI-2 Btn-OFF-內框_20190412.png"];
+         cell.cellImageView.image = [UIImage imageNamed:@"SP5110-UI-2 Btn-OFF-外框_20190412"];
+        cell.insideImageView.image = [UIImage imageNamed:@"SP5110-UI-2 Btn-OFF-內框_20190412"];
     }
     
     cell.backgroundColor = self.view.backgroundColor;
@@ -199,63 +194,97 @@
     
     //取出select状态
     NSNumber * boolNum = [cellDic objectForKey:@"select"];
-    BOOL isOn = [boolNum boolValue];
+    BOOL isSelect = [boolNum boolValue];
     //cell是否打开
-    if (isOn) {//如果cell是被点击的
-                [cell setSelected:isOn];
+    if (isSelect) {//如果cell是被点击的
+        [cell setSelected:isSelect];
     }else {
-                [cell setSelected:NO];
+        [cell setSelected:NO];
     }
     
-    return cell;
-}
-
-#pragma mark cell点击方法
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    ButtonCollectionViewCell *cell = (ButtonCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
-    //取出设备对应的字典
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *deviceStr = [defaults objectForKey:@"DeviceName"];
-    NSMutableDictionary *deviceDic = [NSMutableDictionary dictionary];
-    NSMutableDictionary *cellDic = [NSMutableDictionary dictionary];
-    deviceDic = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:deviceStr]];
-    if ([deviceDic objectForKey:[NSString stringWithFormat:@"cell%ld", indexPath.row]]) {
-        cellDic = [NSMutableDictionary dictionaryWithDictionary:[deviceDic objectForKey:[NSString stringWithFormat:@"cell%ld", indexPath.row]]];
-    }
-    
+    //cell上switch的状态
     NSNumber * boolSwitch = [cellDic objectForKey:@"switch"];
     BOOL isOn = [boolSwitch boolValue];
     
+    [cell.touchButton addTarget:self action:@selector(touchBegan:) forControlEvents:UIControlEventTouchDown];
+    [cell.touchButton addTarget:self action:@selector(touchEnded:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.clickButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchDown];
     if (isOn) {
         //开关是开的(长按)
+        [cell.clickButton setHidden:YES];
+        [cell.touchButton setHidden:NO];
+//        NSLog(@"这个Cell要长按才行啊!!!");
         
-        NSLog(@"这个Cell要长按才行啊!!!");
+    }else {//开关是关的
+        [cell.clickButton setHidden:NO];
+        [cell.touchButton setHidden:YES];
         
-    }else {//开关是关的,记录cell的点击状态(BOOL值记录)
-        NSNumber * boolSelect = [cellDic objectForKey:@"select"];
-        BOOL isSelect = [boolSelect boolValue];//取出点击状态bool值
-        if (isSelect) {//如果cell是被点击的
-            boolSelect = [NSNumber numberWithBool:NO];
-            
-            [cellDic setObject:boolSelect forKey:@"select"];//存入点击状态
-            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-        }else {
-            boolSelect = [NSNumber numberWithBool:YES];
-            [cellDic setObject:boolSelect forKey:@"select"];
-            [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-        }
+//        NSLog(@"点一下就够了！！！");
         
-        NSLog(@"select---%@", [cellDic objectForKey:@"select"]);
-        
-        [deviceDic setObject:cellDic forKey:[NSString stringWithFormat:@"cell%ld",indexPath.row]];
-        [defaults setObject:deviceDic forKey:deviceStr];
     }
     
+        return cell;
+}
+
+
+
+
+- (void)clickButton:(UIButton *)but {
     
+    ButtonCollectionViewCell *cell = (ButtonCollectionViewCell *)[[but superview] superview];
+    NSIndexPath *indexPath = [_collectionView indexPathForCell:cell];
+        //取出设备对应的字典
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *deviceStr = [defaults objectForKey:@"DeviceName"];
+        NSMutableDictionary *deviceDic = [NSMutableDictionary dictionary];
+        NSMutableDictionary *cellDic = [NSMutableDictionary dictionary];
+        deviceDic = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:deviceStr]];
+        if ([deviceDic objectForKey:[NSString stringWithFormat:@"cell%ld", indexPath.row]]) {
+            cellDic = [NSMutableDictionary dictionaryWithDictionary:[deviceDic objectForKey:[NSString stringWithFormat:@"cell%ld", indexPath.row]]];
+        }
+    
+    
+    
+//    开关是关的,记录cell的点击状态(BOOL值记录)
+            NSNumber * boolSelect = [cellDic objectForKey:@"select"];
+            BOOL isSelect = [boolSelect boolValue];//取出点击状态bool值
+            if (isSelect) {//如果cell是被点击的
+                boolSelect = [NSNumber numberWithBool:NO];
+    
+                [cellDic setObject:boolSelect forKey:@"select"];//存入点击状态
+                [_collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            }else {
+                boolSelect = [NSNumber numberWithBool:YES];
+                [cellDic setObject:boolSelect forKey:@"select"];
+                [_collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+            }
+        [deviceDic setObject:cellDic forKey:[NSString stringWithFormat:@"cell%ld",indexPath.row]];
+        [defaults setObject:deviceDic forKey:deviceStr];
+    [_collectionView reloadData];
+//    NSLog(@"22222点了一下~~~");
+}
+
+//对于需要长按的按钮，开始点击
+- (void)touchBegan:(UIButton *)but  {
+//     NSLog(@"111111长按~~~");
+    
+    ButtonCollectionViewCell *cell = (ButtonCollectionViewCell *)[[but superview] superview];
+    
+    [_collectionView selectItemAtIndexPath:[_collectionView indexPathForCell:cell] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     
 }
+//对于需要长按的按钮，开始结束
+- (void)touchEnded:(UIButton *)but {
+    
+//    NSLog(@"33333结束了啊~~~");
+    
+    ButtonCollectionViewCell *cell = (ButtonCollectionViewCell *)[[but superview] superview];
+
+
+    [_collectionView deselectItemAtIndexPath:[_collectionView indexPathForCell:cell] animated:YES];
+}
+
+
 
 
 #pragma mark 添加通知
@@ -411,6 +440,51 @@
     [_collectionView reloadData];
 }
 
-
+//#pragma mark cell点击方法
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    ButtonCollectionViewCell *cell = (ButtonCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//
+//    //取出设备对应的字典
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSString *deviceStr = [defaults objectForKey:@"DeviceName"];
+//    NSMutableDictionary *deviceDic = [NSMutableDictionary dictionary];
+//    NSMutableDictionary *cellDic = [NSMutableDictionary dictionary];
+//    deviceDic = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:deviceStr]];
+//    if ([deviceDic objectForKey:[NSString stringWithFormat:@"cell%ld", indexPath.row]]) {
+//        cellDic = [NSMutableDictionary dictionaryWithDictionary:[deviceDic objectForKey:[NSString stringWithFormat:@"cell%ld", indexPath.row]]];
+//    }
+//
+//    NSNumber * boolSwitch = [cellDic objectForKey:@"switch"];
+//    BOOL isOn = [boolSwitch boolValue];
+//
+//    if (isOn) {
+//        //开关是开的(长按)
+//
+//        NSLog(@"这个Cell要长按才行啊!!!");
+//
+//    }else {//开关是关的,记录cell的点击状态(BOOL值记录)
+//        NSNumber * boolSelect = [cellDic objectForKey:@"select"];
+//        BOOL isSelect = [boolSelect boolValue];//取出点击状态bool值
+//        if (isSelect) {//如果cell是被点击的
+//            boolSelect = [NSNumber numberWithBool:NO];
+//
+//            [cellDic setObject:boolSelect forKey:@"select"];//存入点击状态
+//            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+//        }else {
+//            boolSelect = [NSNumber numberWithBool:YES];
+//            [cellDic setObject:boolSelect forKey:@"select"];
+//            [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+//        }
+//
+//        NSLog(@"select---%@", [cellDic objectForKey:@"select"]);
+//
+//        [deviceDic setObject:cellDic forKey:[NSString stringWithFormat:@"cell%ld",indexPath.row]];
+//        [defaults setObject:deviceDic forKey:deviceStr];
+//    }
+//
+//
+//
+//}
 
 @end
